@@ -28,7 +28,18 @@ const getAllEvents = async (queryData) => {
             }
         }
 
-        const events = await Event.find(filterObject);
+        //sorting with MongoDB
+        // { propertyToSortBy: sortOrder }
+        const sortObject = {}
+        // should look something like this { title: "desc"}
+        // what do i need to set sortObject equal to make ?soryBy=PROPERTY&sortOrder=ORDER
+
+        // first evaluate queryData.sortBy
+        // sortObject["title"] - same as sortObject.title
+        sortObject[queryData.sortBy || "_id"] = queryData.sortOrder || "asc"
+
+       const events = await Event.find(filterObject).sort(sortObject);
+
         return events;
     } catch (error) {
         throw error
