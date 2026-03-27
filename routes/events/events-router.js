@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
     try {
-        const events = await getAllEvents();
+        const events = await getAllEvents(req.query);
         res.json({
             message: "success",
             payload: events
